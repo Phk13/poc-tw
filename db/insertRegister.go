@@ -13,7 +13,7 @@ func InsertRegister(u models.User) (string, bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 	db := DBConnector.Database("twittor")
-	col := db.Collection("usuarios")
+	col := db.Collection("users")
 
 	u.Password, _ = EncryptPassword(u.Password)
 	result, err := col.InsertOne(ctx, u)

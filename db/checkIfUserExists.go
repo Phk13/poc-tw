@@ -14,7 +14,7 @@ func CheckIfUserExists(email string) (models.User, bool, string) {
 	defer cancel()
 
 	db := DBConnector.Database("twittor")
-	col := db.Collection("usuarios")
+	col := db.Collection("users")
 
 	condition := bson.M{"email": email}
 
