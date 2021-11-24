@@ -8,8 +8,8 @@ import (
 	"github.com/phk13/poc-tw/db"
 )
 
-/* ReadTweets recovers tweets*/
-func ReadTweets(w http.ResponseWriter, r *http.Request) {
+/* GetTweets recovers tweets*/
+func GetTweets(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {
 		http.Error(w, "Must send parameter id", http.StatusBadRequest)

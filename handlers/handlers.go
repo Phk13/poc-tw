@@ -11,16 +11,30 @@ import (
 	"github.com/rs/cors"
 )
 
-/* Handlers sets ports, handler and begins listening */
+/* Handlers sets port, handlers and begins listening */
 func Handlers() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/register", middlew.CheckDB(routers.Register)).Methods("POST")
 	router.HandleFunc("/login", middlew.CheckDB(routers.Login)).Methods("POST")
-	router.HandleFunc("/viewprofile", middlew.CheckDB(middlew.ValidateJWT(routers.ViewProfile))).Methods("GET")
-	router.HandleFunc("/modifyprofile", middlew.CheckDB(middlew.ValidateJWT(routers.ModifyProfile))).Methods("PUT")
+	router.HandleFunc("/viewProfile", middlew.CheckDB(middlew.ValidateJWT(routers.ViewProfile))).Methods("GET")
+	router.HandleFunc("/modifyProfile", middlew.CheckDB(middlew.ValidateJWT(routers.ModifyProfile))).Methods("PUT")
+
 	router.HandleFunc("/tweet", middlew.CheckDB(middlew.ValidateJWT(routers.SaveTweet))).Methods("POST")
-	router.HandleFunc("/readtweets", middlew.CheckDB(middlew.ValidateJWT(routers.ReadTweets))).Methods("GET")
+	router.HandleFunc("/readTweets", middlew.CheckDB(middlew.ValidateJWT(routers.GetTweets))).Methods("GET")
+	router.HandleFunc("/deleteTweet", middlew.CheckDB(middlew.ValidateJWT(routers.RemoveTweet))).Methods("DELETE")
+
+	router.HandleFunc("/uploadAvatar", middlew.CheckDB(middlew.ValidateJWT(routers.UploadAvatar))).Methods("POST")
+	router.HandleFunc("/getAvatar", middlew.CheckDB(middlew.ValidateJWT(routers.GetAvatar))).Methods("GET")
+	router.HandleFunc("/uploadBanner", middlew.CheckDB(middlew.ValidateJWT(routers.UploadBanner))).Methods("POST")
+	router.HandleFunc("/getBanner", middlew.CheckDB(middlew.ValidateJWT(routers.GetBanner))).Methods("GET")
+
+	router.HandleFunc("/createRelationship", middlew.CheckDB(middlew.ValidateJWT(routers.CreateRelationship))).Methods("POST")
+	router.HandleFunc("/deleteRelationship", middlew.CheckDB(middlew.ValidateJWT(routers.RemoveRelationship))).Methods("DELETE")
+	router.HandleFunc("/checkRelationship", middlew.CheckDB(middlew.ValidateJWT(routers.CheckRelationship))).Methods("GET")
+
+	router.HandleFunc("/listUsers", middlew.CheckDB(middlew.ValidateJWT(routers.ListUsers))).Methods("GET")
+	router.HandleFunc("/getFollowerTweets", middlew.CheckDB(middlew.ValidateJWT(routers.GetFollowerTweets))).Methods("GET")
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
