@@ -10,7 +10,7 @@ import (
 
 /* DBConnector exports a Mongo connection. */
 var DBConnector = connectDB()
-var clientOptions = options.Client().ApplyURI("mongodb+srv://poc-tw:ujHfMC9xjqM8paxl@poc-tw.d7cbd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+var clientOptions = options.Client().ApplyURI("mongodb+srv://poc-tw:ujHfMC9xjqM8paxl@poc-tw.d7cbd.mongodb.net/poc-tw?retryWrites=true&w=majority")
 
 func connectDB() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
