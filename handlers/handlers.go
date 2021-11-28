@@ -25,9 +25,9 @@ func Handlers() {
 	router.HandleFunc("/deleteTweet", middlew.CheckDB(middlew.ValidateJWT(routers.RemoveTweet))).Methods("DELETE")
 
 	router.HandleFunc("/uploadAvatar", middlew.CheckDB(middlew.ValidateJWT(routers.UploadAvatar))).Methods("POST")
-	router.HandleFunc("/getAvatar", middlew.CheckDB(middlew.ValidateJWT(routers.GetAvatar))).Methods("GET")
+	router.HandleFunc("/getAvatar", middlew.CheckDB(routers.GetAvatar)).Methods("GET")
 	router.HandleFunc("/uploadBanner", middlew.CheckDB(middlew.ValidateJWT(routers.UploadBanner))).Methods("POST")
-	router.HandleFunc("/getBanner", middlew.CheckDB(middlew.ValidateJWT(routers.GetBanner))).Methods("GET")
+	router.HandleFunc("/getBanner", middlew.CheckDB(routers.GetBanner)).Methods("GET")
 
 	router.HandleFunc("/createRelationship", middlew.CheckDB(middlew.ValidateJWT(routers.CreateRelationship))).Methods("POST")
 	router.HandleFunc("/deleteRelationship", middlew.CheckDB(middlew.ValidateJWT(routers.RemoveRelationship))).Methods("DELETE")
