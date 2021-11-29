@@ -4,12 +4,13 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/phk13/poc-tw/config"
 	"github.com/phk13/poc-tw/models"
 )
 
 /* GenerateJWT encrypts a user into a JWT*/
 func GenerateJWT(user models.User) (string, error) {
-	key := []byte("secret")
+	key := []byte(config.AppCfg.JWT.Secret)
 
 	payload := jwt.MapClaims{
 		"email":     user.Email,

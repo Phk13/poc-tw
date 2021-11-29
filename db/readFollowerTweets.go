@@ -1,20 +1,19 @@
 package db
 
 import (
-	"context"
-	"time"
-
 	"github.com/phk13/poc-tw/models"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 /* RedFollowerTweets reads tweets from all followers.*/
 func ReadFollowerTweets(ID string, page int) ([]models.ReturnFollowerTweets, bool) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	/* ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	db := DBConnector.Database("twittor")
-	col := db.Collection("relationship")
+	col := db.Collection("relationship") */
+	col, ctx, cancel := GetCollection("relationship")
+	defer cancel()
 
 	skip := (page - 1) * 20
 	conditions := make([]bson.M, 0)

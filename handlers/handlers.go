@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/phk13/poc-tw/config"
 	"github.com/phk13/poc-tw/middlew"
 	"github.com/phk13/poc-tw/routers"
 	"github.com/rs/cors"
@@ -38,8 +39,8 @@ func Handlers() {
 
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
-		PORT = "8080"
+		PORT = config.AppCfg.Server.Port
 	}
 	handler := cors.AllowAll().Handler(router)
-	log.Fatal(http.ListenAndServe(":"+PORT, handler))
+	log.Fatal(http.ListenAndServe(config.AppCfg.Server.Host+":"+PORT, handler))
 }

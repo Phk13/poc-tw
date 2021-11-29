@@ -1,21 +1,20 @@
 package db
 
 import (
-	"context"
-	"time"
-
 	"github.com/phk13/poc-tw/models"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 /* CheckIfUserExists receives an email and checks if it exists in DB.*/
 func CheckIfUserExists(email string) (models.User, bool, string) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	/* ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	db := DBConnector.Database("twittor")
-	col := db.Collection("users")
-
+	col := db.Collection("users") */
+	col, ctx, cancel := GetCollection("users")
+	defer cancel()
+	
 	condition := bson.M{"email": email}
 
 	var result models.User

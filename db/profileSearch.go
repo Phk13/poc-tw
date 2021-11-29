@@ -1,9 +1,7 @@
 package db
 
 import (
-	"context"
 	"log"
-	"time"
 
 	"github.com/phk13/poc-tw/models"
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,11 +10,14 @@ import (
 
 /* ProfileSearch searches for a profile in DB.*/
 func ProfileSearch(ID string) (models.User, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	// ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	// defer cancel()
+
+	// db := DBConnector.Database("twittor")
+	// col := db.Collection("users")
+	col, ctx, cancel := GetCollection("users")
 	defer cancel()
 
-	db := DBConnector.Database("twittor")
-	col := db.Collection("users")
 
 	var profile models.User
 	objID, _ := primitive.ObjectIDFromHex(ID)

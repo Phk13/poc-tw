@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/phk13/poc-tw/config"
 	"github.com/phk13/poc-tw/db"
 	"github.com/phk13/poc-tw/models"
 )
@@ -14,7 +15,7 @@ var UserID string
 
 /* ProcessToken processes a token to extract its values*/
 func ProcessToken(token string) (*models.Claim, bool, string, error) {
-	key := []byte("secret")
+	key := []byte(config.AppCfg.JWT.Secret)
 	claims := &models.Claim{}
 
 	splitToken := strings.Split(token, "Bearer")

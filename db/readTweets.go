@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"log"
-	"time"
 
 	"github.com/phk13/poc-tw/models"
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,11 +11,13 @@ import (
 
 /* ReadTweets reads tweets from a profile*/
 func ReadTweets(ID string, page int64) ([]*models.ReturnTweets, bool) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	/* ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	db := DBConnector.Database("twittor")
-	col := db.Collection("tweet")
+	col := db.Collection("tweet") */
+	col, ctx, cancel := GetCollection("tweet")
+	defer cancel()
 
 	var results []*models.ReturnTweets
 

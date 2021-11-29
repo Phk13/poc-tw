@@ -3,14 +3,17 @@ package db
 import (
 	"context"
 	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"github.com/phk13/poc-tw/config"
 )
 
 /* DBConnector exports a Mongo connection. */
 var DBConnector = connectDB()
-var clientOptions = options.Client().ApplyURI("mongodb+srv://poc-tw:ujHfMC9xjqM8paxl@poc-tw.d7cbd.mongodb.net/poc-tw?retryWrites=true&w=majority")
+var clientOptions = options.Client().ApplyURI(config.AppCfg.Database.Uri)
 
 func connectDB() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -29,4 +32,11 @@ func connectDB() *mongo.Client {
 func CheckConnection() bool {
 	err := DBConnector.Ping(context.TODO(), nil)
 	return err == nil
+}
+
+
+func GetCollection(col string) (*mongo.Collection, context.Context, context.CancelFunc) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	collection := DBConnector.Database("twittor").Collection(col)
+	return collection, ctx, cancel
 }
