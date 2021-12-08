@@ -1,0 +1,9 @@
+server:
+  host: "localhost"
+  port: 8080
+
+database:
+  uri: "mongodb+srv://{user}:{pass}@{host}/poc-tw?retryWrites=true&w=majority"
+
+jwt:
+  secret: ""
