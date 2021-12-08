@@ -11,10 +11,10 @@ var AppCfg = loadConfig()
 
 func loadConfig() Config  {
 	viper.AddConfigPath(".")
-    viper.SetConfigName("config")
-    viper.SetConfigType("yml")
+    viper.SetConfigName("app")
+    viper.SetConfigType("env")
 	viper.AutomaticEnv()
-	viper.SetDefault("ServerPort", "8080")
+	viper.SetDefault("PORT", "8080")
 
 	var cfg Config
 	
@@ -30,7 +30,7 @@ func loadConfig() Config  {
 
 
 type Config struct {
-    ServerPort string `mapstructure:"serverport"`
-    Database string `mapstructure:"database"`
-	JWT_Secret string `yaml:"jwt_secret"`
+    ServerPort string `mapstructure:"PORT"`
+    Database string `mapstructure:"DATABASE"`
+	JWT_Secret string `mapstructure:"JWTSECRET"`
 }

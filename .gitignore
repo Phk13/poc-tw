@@ -1,4 +1,5 @@
 uploads/avatars/*
 uploads/banners/*
 main.exe
-config.yml
+*.yml
+*.env
