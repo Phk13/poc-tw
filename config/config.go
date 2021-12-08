@@ -15,6 +15,9 @@ func loadConfig() Config  {
     viper.SetConfigType("env")
 	viper.AutomaticEnv()
 	viper.SetDefault("PORT", "8080")
+	viper.BindEnv("PORT")
+	viper.BindEnv("DATABASE")
+	viper.BindEnv("JWTSECRET")
 
 	var cfg Config
 	
