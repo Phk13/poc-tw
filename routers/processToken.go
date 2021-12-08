@@ -15,7 +15,7 @@ var UserID string
 
 /* ProcessToken processes a token to extract its values*/
 func ProcessToken(token string) (*models.Claim, bool, string, error) {
-	key := []byte(config.AppCfg.JWT.Secret)
+	key := []byte(config.AppCfg.JWT_Secret)
 	claims := &models.Claim{}
 
 	splitToken := strings.Split(token, "Bearer")

@@ -3,7 +3,6 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/phk13/poc-tw/config"
@@ -37,10 +36,6 @@ func Handlers() {
 	router.HandleFunc("/listUsers", middlew.CheckDB(middlew.ValidateJWT(routers.ListUsers))).Methods("GET")
 	router.HandleFunc("/getFollowerTweets", middlew.CheckDB(middlew.ValidateJWT(routers.GetFollowerTweets))).Methods("GET")
 
-	PORT := os.Getenv("PORT")
-	if PORT == "" {
-		PORT = config.AppCfg.Server.Port
-	}
 	handler := cors.AllowAll().Handler(router)
-	log.Fatal(http.ListenAndServe(config.AppCfg.Server.Host+":"+PORT, handler))
+	log.Fatal(http.ListenAndServe(":"+config.AppCfg.ServerPort, handler))
 }

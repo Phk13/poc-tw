@@ -13,7 +13,7 @@ import (
 
 /* DBConnector exports a Mongo connection. */
 var DBConnector = connectDB()
-var clientOptions = options.Client().ApplyURI(config.AppCfg.Database.Uri)
+var clientOptions = options.Client().ApplyURI(config.AppCfg.Database)
 
 func connectDB() *mongo.Client {
 	client, err := mongo.Connect(context.TODO(), clientOptions)

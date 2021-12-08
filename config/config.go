@@ -2,40 +2,35 @@ package config
 
 import (
 	"log"
-	"os"
 
-	"gopkg.in/yaml.v2"
+	"github.com/spf13/viper"
 )
 
 /* AppCfg contains all the App configuration loaded from config.yml*/
 var AppCfg = loadConfig()
 
 func loadConfig() Config  {
-	f, err := os.Open("config.yml")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-	
+	viper.AddConfigPath(".")
+    viper.SetConfigName("config")
+    viper.SetConfigType("yml")
+	viper.AutomaticEnv()
+	viper.SetDefault("ServerPort", "8080")
+
 	var cfg Config
-	decoder := yaml.NewDecoder(f)
-	err = decoder.Decode(&cfg)
+	
+	if err := viper.ReadInConfig(); err != nil {
+		log.Printf("Error reading config file, %s", err)
+	}
+	err := viper.Unmarshal(&cfg)
 	if err != nil {
-    	log.Fatal(err)
+		log.Printf("Unable to decode into struct, %v", err)
 	}
 	return cfg
 }
 
 
 type Config struct {
-    Server struct {
-        Port string `yaml:"port"`
-        Host string `yaml:"host"`
-    } `yaml:"server"`
-    Database struct {
-        Uri string `yaml:"uri"`
-    } `yaml:"database"`
-	JWT struct {
-		Secret string `yaml:"secret"`
-	} `yaml:"jwt"`
+    ServerPort string `mapstructure:"serverport"`
+    Database string `mapstructure:"database"`
+	JWT_Secret string `yaml:"jwt_secret"`
 }
